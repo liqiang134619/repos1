@@ -68,6 +68,7 @@ public class WebSocketServer {
     public void onMessage(String message, Session session) {
         System.out.println(session + ":" + message);
         log.info(message);
+        sendMessage("ok, 服务器收到消息 消息为：" +  message);
     }
 
     /**
