@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luopan.barrage.dao.BarrageDao">
+
+  <resultMap id="BaseResultMap" type="com.luopan.barrage.modal.Barrage">
+    <id property="id" column="ID" jdbcType="BIGINT"/>
+    <result property="message" column="MESSAGE" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <select id="findGtId" resultMap="BaseResultMap" parameterType="long">
+    SELECT ID, MESSAGE
+    FROM BARRAGE
+    WHERE ID > #{id}
+    order by ID
+  </select>
+
+  <insert id="insert" parameterType="barrage">
+    INSERT INTO BARRAGE(MESSAGE) VALUES(#{message})
+  </insert>
+
+</mapper>

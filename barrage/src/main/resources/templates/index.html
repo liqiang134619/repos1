@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>留言墙</title>
+</head>
+<body>
+  <button id="connect">连接</button>
+  <div id="sendDiv" style="display: none">
+    <input id="text"/>
+    <button id="send">发送</button>
+  </div>
+  <div id="message"></div>
+</body>
+</html>
+
+<script>
+  var websocket = null;
+  var btn = document.getElementById("connect");
+  btn.onclick = function (event) {
+    var sendDiv = document.getElementById("sendDiv");
+    if (websocket === null) {
+      if('WebSocket' in window){
+        websocket = new WebSocket('ws://localhost:8080/websocket/2');
+        btn.innerHTML = "断开连接";
+        sendDiv.style.display = "block";
+
+        websocket.onopen = function (event) {
+          console.log("建立连接");
+          setMessageInnerHTML("建立连接");
+        };
+
+        websocket.onclose = function (event) {
+          console.log("断开连接");
+          setMessageInnerHTML("断开连接");
+        };
+
+        websocket.onmessage = function (event) {
+          console.log("收到消息" + new Date().toLocaleString() + event.data);
+          setMessageInnerHTML(event.data);
+        };
+
+        websocket.onerror = function (event) {
+          alert("websocket通信发生错误");
+        };
+
+        window.onbeforeunload = function (event) {
+          websocket.close();
+        };
+      }else{
+        alert("该浏览器不支持WebSocket");
+      }
+    } else {
+      websocket.close();
+      websocket = null;
+      btn.innerHTML = "连接";
+      sendDiv.style.display = "none";
+    }
+  };
+
+  var sendBtn = document.getElementById("send");
+  sendBtn.onclick = function (event) {
+    var text = document.getElementById("text").value;
+    if (text !== '') {
+      websocket.send(text);
+    }
+  }
+  
+  function setMessageInnerHTML(innerHTML) {
+    var messageDiv = document.getElementById("message");
+    messageDiv.innerHTML += innerHTML + '<br/>';
+  }
+</script>
