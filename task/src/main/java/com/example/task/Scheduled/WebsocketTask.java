@@ -40,7 +40,7 @@ public class WebsocketTask {
         System.err.println("/n 定时任务完成.......");
     }
 
-    @Scheduled(initialDelay=5000, fixedRate=5000)  // 第一次延迟五秒，后续5秒钟执行一次
+    @Scheduled(initialDelay=10000, fixedRate=10000)  // 第一次延迟10秒，后续10秒钟执行一次
     public void task2() throws IOException {
         System.out.println("保存excel");
         Excel.saveExcel(list);
