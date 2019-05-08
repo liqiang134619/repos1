@@ -21,12 +21,13 @@ public class Excel {
     public static void saveExcel(List<String> lists) throws IOException {
 
         File excel = new File("d:/task.xls");
+        FileOutputStream fos = new FileOutputStream(excel);
 
         // 文件不存在,创建excel
         if (!excel.exists()) {
             excel.mkdir();
             HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
-            HSSFSheet sheet = hssfWorkbook.createSheet("taskSheet");
+            HSSFSheet sheet = hssfWorkbook.createSheet();
             HSSFRow titleRow = sheet.createRow(0);
             titleRow.createCell(0).setCellValue("发送方");
             titleRow.createCell(1).setCellValue("消息内容");
@@ -44,8 +45,6 @@ public class Excel {
             HSSFSheet sheet = hssfWorkbook.getSheetAt(0);
 
             // 追加数据
-            FileOutputStream fos = new FileOutputStream(excel);
-//            HSSFRow row = sheet.createRow(sheet.getLastRowNum() + 1);
             for (String list : lists) {
                 HSSFRow row = sheet.createRow(sheet.getLastRowNum() + 1);
                 row.createCell(0).setCellValue("服务器");
