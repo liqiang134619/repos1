@@ -14,8 +14,8 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
  * Created by liq on 2019/5/7.
  * SpringTask的并行
  */
-@Configuration
-@EnableScheduling
+//@Configuration
+//@EnableScheduling
 public class AsyncTaskConfig implements SchedulingConfigurer, AsyncConfigurer {
 
     // 线程池线程数量
