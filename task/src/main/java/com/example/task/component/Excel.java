@@ -45,8 +45,9 @@ public class Excel {
 
             // 追加数据
             FileOutputStream fos = new FileOutputStream(excel);
-            HSSFRow row = sheet.createRow(sheet.getLastRowNum() + 1);
+//            HSSFRow row = sheet.createRow(sheet.getLastRowNum() + 1);
             for (String list : lists) {
+                HSSFRow row = sheet.createRow(sheet.getLastRowNum() + 1);
                 row.createCell(0).setCellValue("服务器");
                 row.createCell(1).setCellValue(list);
 
