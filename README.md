@@ -1,3 +1,3 @@
 # repos1
 test
-$\int80dx$
+$\int80x^2dx$
